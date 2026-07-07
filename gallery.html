@@ -1,0 +1,2482 @@
+<!doctype html>
+<html lang="en" class="js">
+  <head>
+    <script>
+      /* mark JS alive synchronously */
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Safari Gallery — Big 5 Africa Safari | East Africa Photography
+    </title>
+    <meta
+      name="description"
+      content="Explore our East Africa safari photography gallery. Wildlife, landscapes, luxury lodges, guest moments and safari experiences across Kenya and Tanzania."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="assets/css/main.css" />
+
+    <!-- NEW CSS START -->
+    <style>
+      /* ================================================================
+   gallery.html — page-specific styles
+   Move to css/components.css when ready
+   ================================================================ */
+
+      /* ---- Hero ---- */
+      .gal-hero {
+        position: relative;
+        overflow: hidden;
+        min-height: 540px;
+        display: flex;
+        align-items: center;
+        background: #0e0b07;
+      }
+      .gal-hero-bg {
+        position: absolute;
+        inset: 0;
+        background-image: url("assets/safari-1.webp");
+        background-size: cover;
+        background-position: center;
+        opacity: 0.55;
+      }
+      .gal-hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          100deg,
+          rgba(10, 7, 3, 0.92) 0%,
+          rgba(10, 7, 3, 0.74) 45%,
+          rgba(10, 7, 3, 0.52) 100%
+        );
+      }
+      .gal-hero-inner {
+        position: relative;
+        z-index: 2;
+        padding: 80px 0 88px;
+        max-width: 680px;
+      }
+      .gal-hero-inner h1 {
+        color: #fff;
+        font-size: clamp(30px, 4.8vw, 58px);
+        line-height: 1.04;
+        margin-bottom: 18px;
+      }
+      .gal-hero-inner h1 em {
+        color: var(--gold-bright);
+        font-style: normal;
+      }
+      .gal-hero-inner p {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: clamp(15px, 1.5vw, 18px);
+        line-height: 1.65;
+        margin: 0 0 30px;
+        max-width: 520px;
+      }
+      .gal-hero-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+      .gal-hero-trust {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px 22px;
+        margin-top: 26px;
+        padding-top: 22px;
+        border-top: 1px solid rgba(255, 255, 255, 0.15);
+      }
+      .gal-hero-trust span {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.72);
+        font-weight: 600;
+      }
+      .gal-hero-trust svg {
+        width: 14px;
+        height: 14px;
+        color: var(--gold-bright);
+        flex-shrink: 0;
+      }
+
+      /* ---- Shared gallery primitives ---- */
+      .gal-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 14px;
+      }
+      .gal-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      }
+      .gal-item:hover img {
+        transform: scale(1.06);
+      }
+      .gal-shade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(10, 7, 3, 0.72) 0%,
+          transparent 54%
+        );
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .gal-item:hover .gal-shade {
+        opacity: 1;
+      }
+      .gal-label {
+        position: absolute;
+        bottom: 14px;
+        left: 16px;
+        right: 16px;
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 13px;
+        font-weight: 700;
+        transform: translateY(4px);
+        transition: transform 0.3s;
+      }
+      .gal-item:hover .gal-label {
+        transform: translateY(0);
+      }
+      .gal-zoom {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.6);
+        opacity: 0;
+        color: #fff;
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+        pointer-events: none;
+      }
+      .gal-item:hover .gal-zoom {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+      }
+      .gal-zoom svg {
+        width: 40px;
+        height: 40px;
+        filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.5));
+      }
+      .gal-tag {
+        position: absolute;
+        top: 14px;
+        left: 14px;
+        background: rgba(194, 138, 51, 0.9);
+        color: #fff;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        padding: 4px 10px;
+        border-radius: 999px;
+      }
+
+      /* ---- 1. Featured Safari Collection — editorial masonry ---- */
+      .fc-section {
+        background: #0e0b07;
+        padding: 88px 0;
+      }
+      .fc-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        grid-template-rows: 300px 300px;
+        gap: 12px;
+        margin-top: 44px;
+      }
+      .fc-grid .gal-item:nth-child(1) {
+        grid-column: 1;
+        grid-row: 1 / 3;
+      }
+      .fc-grid .gal-item:nth-child(2) {
+        grid-column: 2;
+        grid-row: 1;
+      }
+      .fc-grid .gal-item:nth-child(3) {
+        grid-column: 3;
+        grid-row: 1;
+      }
+      .fc-grid .gal-item:nth-child(4) {
+        grid-column: 2 / 4;
+        grid-row: 2;
+      }
+      .fc-footer {
+        text-align: center;
+        margin-top: 36px;
+      }
+      @media (max-width: 860px) {
+        .fc-grid {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: repeat(3, 220px);
+        }
+        .fc-grid .gal-item:nth-child(1) {
+          grid-column: 1 / 3;
+          grid-row: 1;
+        }
+        .fc-grid .gal-item:nth-child(4) {
+          grid-column: 1 / 3;
+        }
+      }
+      @media (max-width: 500px) {
+        .fc-grid {
+          grid-template-columns: 1fr;
+          grid-template-rows: none;
+        }
+        .fc-grid .gal-item {
+          height: 220px;
+          grid-column: auto !important;
+          grid-row: auto !important;
+        }
+      }
+
+      /* ---- 2. Wildlife Gallery ---- */
+      .wg-section {
+        background: var(--cream);
+        padding: 88px 0;
+      }
+      .wg-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 12px;
+        margin-top: 44px;
+      }
+      .wg-grid .gal-item {
+        height: 240px;
+      }
+      .wg-grid .gal-item.wide {
+        grid-column: span 2;
+      }
+      @media (max-width: 900px) {
+        .wg-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .wg-grid .gal-item.wide {
+          grid-column: span 2;
+        }
+      }
+      @media (max-width: 500px) {
+        .wg-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .wg-grid .gal-item {
+          height: 160px;
+        }
+        .wg-grid .gal-item.wide {
+          grid-column: span 2;
+        }
+      }
+
+      /* ---- 3. Safari Experiences ---- */
+      .se-section {
+        background: #fff;
+        padding: 88px 0;
+      }
+      .se-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-top: 44px;
+      }
+      .se-card {
+        border-radius: 16px;
+        overflow: hidden;
+        background: #fff;
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow-sm);
+        transition:
+          transform 0.26s,
+          box-shadow 0.26s;
+      }
+      .se-card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-md);
+      }
+      .se-img {
+        height: 200px;
+        overflow: hidden;
+        position: relative;
+      }
+      .se-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s;
+      }
+      .se-card:hover .se-img img {
+        transform: scale(1.07);
+      }
+      .se-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(10, 7, 3, 0.55) 0%,
+          transparent 52%
+        );
+      }
+      .se-body {
+        padding: 16px 16px 18px;
+      }
+      .se-body h4 {
+        font-size: 15px;
+        color: var(--brown-deep);
+        margin: 0 0 6px;
+        line-height: 1.2;
+      }
+      .se-body p {
+        font-size: 13px;
+        color: var(--brown);
+        margin: 0;
+        line-height: 1.5;
+      }
+      @media (max-width: 1000px) {
+        .se-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 520px) {
+        .se-grid {
+          grid-template-columns: 1fr 1fr;
+          gap: 10px;
+        }
+        .se-img {
+          height: 150px;
+        }
+      }
+
+      /* ---- 4. Landscapes — editorial strips ---- */
+      .ls-section {
+        background: #0e0b07;
+        padding: 88px 0;
+      }
+      .ls-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 44px;
+      }
+      .ls-item {
+        position: relative;
+        border-radius: 14px;
+        overflow: hidden;
+      }
+      .ls-item.tall {
+        height: 500px;
+      }
+      .ls-item.med {
+        height: 340px;
+      }
+      .ls-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.6s;
+      }
+      .ls-item:hover img {
+        transform: scale(1.04);
+      }
+      .ls-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(10, 7, 3, 0.62) 0%,
+          transparent 50%
+        );
+      }
+      .ls-caption {
+        position: absolute;
+        bottom: 24px;
+        left: 28px;
+        right: 28px;
+        color: #fff;
+      }
+      .ls-caption h3 {
+        font-size: clamp(18px, 2.4vw, 28px);
+        margin: 0 0 6px;
+      }
+      .ls-caption p {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.72);
+        margin: 0;
+      }
+      .ls-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+      .ls-row .ls-item {
+        height: 320px;
+      }
+      @media (max-width: 700px) {
+        .ls-row {
+          grid-template-columns: 1fr;
+        }
+        .ls-row .ls-item {
+          height: 230px;
+        }
+        .ls-item.tall {
+          height: 300px;
+        }
+        .ls-item.med {
+          height: 240px;
+        }
+      }
+
+      /* ---- 5. Guest Safari Moments — instagram grid ---- */
+      .gm-section {
+        background: var(--sand);
+        padding: 80px 0;
+      }
+      .gm-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 10px;
+        margin-top: 44px;
+      }
+      .gm-item {
+        position: relative;
+        border-radius: 10px;
+        overflow: hidden;
+        aspect-ratio: 1;
+        cursor: pointer;
+      }
+      .gm-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.45s;
+      }
+      .gm-item:hover img {
+        transform: scale(1.09);
+      }
+      .gm-hover {
+        position: absolute;
+        inset: 0;
+        background: rgba(10, 7, 3, 0);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.3s;
+      }
+      .gm-item:hover .gm-hover {
+        background: rgba(10, 7, 3, 0.55);
+      }
+      .gm-ic {
+        color: #fff;
+        opacity: 0;
+        transform: scale(0.6);
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+      }
+      .gm-item:hover .gm-ic {
+        opacity: 1;
+        transform: scale(1);
+      }
+      .gm-ic svg {
+        width: 30px;
+        height: 30px;
+      }
+      .gm-cap {
+        position: absolute;
+        bottom: 9px;
+        left: 10px;
+        right: 10px;
+        color: #fff;
+        font-size: 11px;
+        font-weight: 700;
+        opacity: 0;
+        transform: translateY(4px);
+        transition:
+          opacity 0.3s,
+          transform 0.3s;
+        text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+      }
+      .gm-item:hover .gm-cap {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      @media (max-width: 900px) {
+        .gm-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+      @media (max-width: 600px) {
+        .gm-grid {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 7px;
+        }
+      }
+      @media (max-width: 420px) {
+        .gm-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      /* ---- 6. Luxury Lodges ---- */
+      .ll-section {
+        background: #fff;
+        padding: 88px 0;
+      }
+      .ll-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        margin-top: 44px;
+      }
+      .ll-card {
+        border-radius: 18px;
+        overflow: hidden;
+        box-shadow: var(--shadow-md);
+        background: #fff;
+        transition:
+          transform 0.28s,
+          box-shadow 0.28s;
+      }
+      .ll-card:hover {
+        transform: translateY(-7px);
+        box-shadow: var(--shadow-lg);
+      }
+      .ll-img {
+        height: 260px;
+        overflow: hidden;
+        position: relative;
+      }
+      .ll-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.5s;
+      }
+      .ll-card:hover .ll-img img {
+        transform: scale(1.06);
+      }
+      .ll-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          0deg,
+          rgba(10, 7, 3, 0.6) 0%,
+          transparent 52%
+        );
+      }
+      .ll-img-label {
+        position: absolute;
+        bottom: 14px;
+        left: 16px;
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .ll-img-sub {
+        position: absolute;
+        bottom: 32px;
+        left: 16px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+      }
+      @media (max-width: 860px) {
+        .ll-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+      @media (max-width: 520px) {
+        .ll-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      /* ---- 7. Cinematic Banner ---- */
+      .cin-banner {
+        position: relative;
+        min-height: 520px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        overflow: hidden;
+      }
+      .cin-bg {
+        position: absolute;
+        inset: 0;
+      }
+      .cin-bg img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .cin-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          135deg,
+          rgba(10, 7, 3, 0.78) 0%,
+          rgba(10, 7, 3, 0.6) 50%,
+          rgba(10, 7, 3, 0.76) 100%
+        );
+      }
+      .cin-content {
+        position: relative;
+        z-index: 2;
+        max-width: 680px;
+        padding: 60px 24px;
+      }
+      .cin-content .eyebrow {
+        color: var(--gold-bright);
+      }
+      .cin-content h2 {
+        color: #fff;
+        font-size: clamp(28px, 4vw, 54px);
+        margin-bottom: 18px;
+        line-height: 1.06;
+      }
+      .cin-content h2 em {
+        color: var(--gold-bright);
+        font-style: normal;
+      }
+      .cin-content p {
+        color: rgba(255, 255, 255, 0.82);
+        font-size: clamp(15px, 1.5vw, 18px);
+        margin-bottom: 32px;
+        line-height: 1.65;
+      }
+      .cin-btns {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+        justify-content: center;
+      }
+
+      /* ================================================================
+   LIGHTBOX — added to existing style block
+   ================================================================ */
+      .gal-item {
+        cursor: pointer;
+      }
+      .gm-item {
+        cursor: pointer;
+      }
+      .se-card {
+        cursor: pointer;
+      }
+      .ll-card {
+        cursor: pointer;
+      }
+
+      /* Overlay */
+      .lb-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 9000;
+        background: rgba(4, 2, 1, 0);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        pointer-events: none;
+        transition: background 0.32s ease;
+      }
+      .lb-overlay.lb-open {
+        background: rgba(4, 2, 1, 0.95);
+        pointer-events: all;
+      }
+
+      /* Image wrapper */
+      .lb-frame {
+        position: relative;
+        max-width: 90vw;
+        max-height: 78svh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: scale(0.9);
+        opacity: 0;
+        transition:
+          transform 0.34s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+          opacity 0.34s;
+      }
+      .lb-overlay.lb-open .lb-frame {
+        transform: scale(1);
+        opacity: 1;
+      }
+      .lb-frame img {
+        max-width: 90vw;
+        max-height: 78svh;
+        object-fit: contain;
+        display: block;
+        border-radius: 4px;
+        user-select: none;
+        -webkit-user-drag: none;
+      }
+
+      /* Info bar */
+      .lb-info {
+        margin-top: 18px;
+        text-align: center;
+        opacity: 0;
+        transition: opacity 0.32s 0.1s;
+        padding: 0 16px;
+      }
+      .lb-overlay.lb-open .lb-info {
+        opacity: 1;
+      }
+      .lb-info-title {
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .lb-info-dest {
+        color: rgba(255, 255, 255, 0.55);
+        font-size: 13px;
+      }
+      .lb-info-count {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        margin-top: 6px;
+        text-transform: uppercase;
+      }
+
+      /* Thumbnail strip */
+      .lb-thumbs {
+        display: flex;
+        gap: 6px;
+        margin-top: 16px;
+        max-width: 90vw;
+        overflow-x: auto;
+        scrollbar-width: none;
+        padding: 2px 4px;
+        opacity: 0;
+        transition: opacity 0.32s 0.15s;
+      }
+      .lb-thumbs::-webkit-scrollbar {
+        display: none;
+      }
+      .lb-overlay.lb-open .lb-thumbs {
+        opacity: 1;
+      }
+      .lb-thumb {
+        width: 52px;
+        height: 38px;
+        flex-shrink: 0;
+        border-radius: 5px;
+        overflow: hidden;
+        cursor: pointer;
+        opacity: 0.45;
+        border: 2px solid transparent;
+        transition:
+          opacity 0.2s,
+          border-color 0.2s,
+          transform 0.2s;
+      }
+      .lb-thumb:hover {
+        opacity: 0.75;
+        transform: translateY(-2px);
+      }
+      .lb-thumb.lb-thumb-active {
+        opacity: 1;
+        border-color: var(--gold);
+      }
+      .lb-thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        pointer-events: none;
+      }
+
+      /* Buttons */
+      .lb-close {
+        position: fixed;
+        top: 18px;
+        right: 20px;
+        z-index: 9010;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 0;
+        color: #fff;
+        font-size: 22px;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        line-height: 1;
+        transition:
+          background 0.2s,
+          transform 0.2s;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          background 0.2s,
+          transform 0.2s,
+          opacity 0.32s;
+      }
+      .lb-overlay.lb-open .lb-close {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .lb-close:hover {
+        background: rgba(255, 255, 255, 0.22);
+        transform: scale(1.08);
+      }
+
+      .lb-nav {
+        position: fixed;
+        top: 50%;
+        z-index: 9010;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+        border: 0;
+        color: #fff;
+        cursor: pointer;
+        display: grid;
+        place-items: center;
+        transition:
+          background 0.2s,
+          transform 0.22s,
+          opacity 0.32s;
+        transform: translateY(-50%);
+        opacity: 0;
+        pointer-events: none;
+      }
+      .lb-overlay.lb-open .lb-nav {
+        opacity: 1;
+        pointer-events: all;
+      }
+      .lb-nav:hover {
+        background: rgba(255, 255, 255, 0.22);
+      }
+      .lb-nav svg {
+        width: 22px;
+        height: 22px;
+      }
+      .lb-prev {
+        left: 14px;
+      }
+      .lb-next {
+        right: 14px;
+      }
+      .lb-prev:hover {
+        transform: translateY(-50%) translateX(-3px);
+      }
+      .lb-next:hover {
+        transform: translateY(-50%) translateX(3px);
+      }
+
+      @media (max-width: 600px) {
+        .lb-nav {
+          width: 40px;
+          height: 40px;
+        }
+        .lb-prev {
+          left: 6px;
+        }
+        .lb-next {
+          right: 6px;
+        }
+        .lb-thumbs {
+          display: none;
+        }
+      }
+    </style>
+    <!-- NEW CSS END -->
+  </head>
+  <body>
+    <!-- ==================== TOPBAR ==================== -->
+    <div class="topbar">
+      <div class="wrap">
+        <div class="topbar-left">
+          <a href="tel:+255 781 800 878">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+            +255 781 800 878
+          </a>
+          <a
+            href="/cdn-cgi/l/email-protection#85ecebe3eac5e7ece2b0e4e3f7ece6e4f6e4e3e4f7ecabe6eae8"
+            class="hide-sm"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-10 6L2 7" />
+            </svg>
+            <span
+              class="__cf_email__"
+              data-cfemail="87eee9e1e8c7e5eee0b2e6e1f5eee4e6f4e6e1e6f5eea9e4e8ea"
+              >info@lundbig5tours.com</span
+            >
+          </a>
+        </div>
+        <div class="topbar-right">
+          <div class="top-socials">
+            <a href="#" aria-label="Instagram"
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2zm0 4.67a5.13 5.13 0 1 0 0 10.26 5.13 5.13 0 0 0 0-10.26zm0 8.46a3.33 3.33 0 1 1 0-6.66 3.33 3.33 0 0 1 0 6.66zm6.54-8.66a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"
+                /></svg
+            ></a>
+            <a href="#" aria-label="Facebook"
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"
+                /></svg
+            ></a>
+            <a href="#" aria-label="YouTube"
+              ><svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M23.5 6.5a3 3 0 0 0-2.12-2.13C19.5 3.86 12 3.86 12 3.86s-7.5 0-9.38.51A3 3 0 0 0 .5 6.5C0 8.38 0 12 0 12s0 3.62.5 5.5a3 3 0 0 0 2.12 2.13c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51A3 3 0 0 0 23.5 17.5C24 15.62 24 12 24 12s0-3.62-.5-5.5zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"
+                /></svg
+            ></a>
+          </div>
+          <div class="top-divider"></div>
+          <div class="lang" id="lang">
+            <button
+              class="lang-btn"
+              id="langBtn"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path
+                  d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                />
+              </svg>
+              <span id="langLabel">English</span>
+              <svg
+                class="chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+            <div class="lang-menu" id="langMenu" role="menu">
+              <button class="active" data-lang="English">
+                <span class="flag">🇬🇧</span> English
+              </button>
+              <button data-lang="Français">
+                <span class="flag">🇫🇷</span> Français
+              </button>
+              <button data-lang="Deutsch">
+                <span class="flag">🇩🇪</span> Deutsch
+              </button>
+              <button data-lang="Español">
+                <span class="flag">🇪🇸</span> Español
+              </button>
+              <button data-lang="Kiswahili">
+                <span class="flag">🇹🇿</span> Kiswahili
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="nav" id="nav">
+      <div class="wrap">
+        <a
+          href="index.html"
+          class="brand"
+          aria-label="Lund Big5 Tours Limited home"
+        >
+          <img src="assets/uploads/logo.png" alt="Lund Big5 Tours Limited" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="index.html#destinations">Destinations</a></li>
+          <!-- <li><a href="index.html#trekking">Trekking</a></li> -->
+          <li class="has-dropdown">
+            <a href="trekking.html">
+              Trekking
+
+              <svg
+                class="dropdown-arrow"
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="kilimanjaro-trekking.html">
+                  Mt. Kilimanjaro Trekking
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li><a href="index.html#activities">Activities</a></li>
+          <!-- <li><a href="index.html#tours">Tours</a></li> -->
+          <li class="has-dropdown">
+            <a href="tours.html">
+              Tours
+
+              <svg
+                class="dropdown-arrow"
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <polyline points="6 9 12 15 18 9"></polyline>
+              </svg>
+            </a>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="wildlife-safari.html"> Wildlife Safari </a>
+              </li>
+
+              <li>
+                <a href="zanzibar-vacation.html"> Zanzibar Vacation </a>
+              </li>
+            </ul>
+          </li>
+
+          <li><a href="index.html#reviews">Reviews</a></li>
+          <li><a href="gallery.html" class="active">Gallery</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+          <a href="index.html#inquiry" class="btn btn-primary"
+            >Plan My Safari</a
+          >
+          <button class="hamburger" id="hamburger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <div class="drawer" id="drawer">
+      <div class="drawer-overlay" id="drawerOverlay"></div>
+      <div class="drawer-panel">
+        <div class="drawer-head">
+          <img src="assets/uploads/logo.png" alt="Lund Big5 Tours Limited" />
+          <button class="drawer-close" id="drawerClose" aria-label="Close menu">
+            &times;
+          </button>
+        </div>
+        <nav class="drawer-links">
+          <a href="index.html">Home</a>
+          <a href="about.html">About Us</a>
+          <a href="index.html#destinations">Destinations</a>
+          <!-- <a href="index.html#trekking">Trekking</a> -->
+          <li class="has-dropdown">
+            <div class="dropdown-trigger">
+              <a href="trekking.html">Trekking</a>
+
+              <button class="submenu-toggle" type="button">
+                <svg
+                  class="dropdown-arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <ul class="dropdown-menu">
+              <li>
+                <a href="kilimanjaro-trekking.html">
+                  Mt. Kilimanjaro Trekking
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <a href="index.html#activities">Activities</a>
+          <!-- <a href="index.html#tours">Tours</a> -->
+          <li class="has-dropdown">
+            <div class="dropdown-trigger">
+              <a href="tours.html">Tours</a>
+
+              <button class="submenu-toggle" type="button">
+                <svg
+                  class="dropdown-arrow"
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </button>
+            </div>
+
+            <ul class="dropdown-menu">
+              <li><a href="wildlife-safari.html">Wildlife Safari</a></li>
+              <li><a href="zanzibar-vacation.html">Zanzibar Vacation</a></li>
+            </ul>
+          </li>
+
+          <a href="index.html#reviews">Reviews</a>
+          <a href="gallery.html">Gallery</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+        <a
+          href="index.html#inquiry"
+          class="btn btn-primary"
+          style="width: 100%; justify-content: center"
+          >Plan My Safari</a
+        >
+      </div>
+    </div>
+
+    <!-- ==================== HERO ==================== -->
+    <header class="gal-hero" id="top" data-screen-label="Hero">
+      <div class="gal-hero-bg" aria-hidden="true"></div>
+      <div class="gal-hero-overlay" aria-hidden="true"></div>
+      <div class="wrap">
+        <div class="gal-hero-inner">
+          <div class="breadcrumb">
+            <a href="index.html">Home</a><span class="breadcrumb-sep">›</span>
+            <span style="color: rgba(255, 255, 255, 0.8)">Gallery</span>
+          </div>
+          <p class="eyebrow" style="color: var(--gold-bright)">
+            Photography &amp; Stories
+          </p>
+          <h1>East Africa<br /><em>Through Our Lens</em></h1>
+          <p>
+            Wildlife at dawn, ancient craters at dusk, endless plains and the
+            people who call them home. Every photograph is an invitation.
+          </p>
+          <div class="gal-hero-btns">
+            <a href="quotation-request.html" class="btn btn-primary"
+              >Plan My Safari</a
+            >
+            <a
+              href="https://wa.me/255781800878"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-ghost btn-lg"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Chat on WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- ==================== 2. WILDLIFE GALLERY ==================== -->
+    <section
+      class="wg-section"
+      id="wildlife"
+      data-screen-label="Wildlife Gallery"
+    >
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <p class="eyebrow center">The Big Five &amp; Beyond</p>
+          <h2>Wildlife Gallery</h2>
+          <p>
+            Encounters that stay with you forever — from the lion's gaze to the
+            elephant's footfall at the water's edge.
+          </p>
+        </div>
+        <div class="wg-grid">
+          <div class="gal-item wide reveal">
+            <img
+              src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=1200&q=80&auto=format&fit=crop"
+              alt="Lion in the Masai Mara"
+              loading="lazy"
+            />
+            <div class="gal-shade"></div>
+            <span class="gal-tag">Lion</span>
+            <div class="gal-zoom">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+            <span class="gal-label">Lion — Masai Mara, Kenya</span>
+          </div>
+          <div class="gal-item reveal">
+            <img
+              src="https://images.unsplash.com/photo-1581852017103-68ac65514cf7?w=900&q=80&auto=format&fit=crop"
+              alt="Elephants on the Serengeti plains"
+              loading="lazy"
+            />
+            <div class="gal-shade"></div>
+            <span class="gal-tag">Elephant</span>
+            <div class="gal-zoom">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+            <span class="gal-label">Elephant — Serengeti</span>
+          </div>
+          <div class="gal-item reveal">
+            <img
+              src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=900&q=80&auto=format&fit=crop"
+              alt="Giraffes on the African savannah"
+              loading="lazy"
+            />
+            <div class="gal-shade"></div>
+            <span class="gal-tag">Giraffe</span>
+            <div class="gal-zoom">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+            <span class="gal-label">Giraffe — Amboseli</span>
+          </div>
+          <div class="gal-item reveal">
+            <img
+              src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=900&q=80&auto=format&fit=crop"
+              alt="Wildebeest during the Great Migration"
+              loading="lazy"
+            />
+            <div class="gal-shade"></div>
+            <span class="gal-tag">Migration</span>
+            <div class="gal-zoom">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+            <span class="gal-label">Wildebeest — Masai Mara</span>
+          </div>
+          <div class="gal-item reveal">
+            <img
+              src="assets/safari-4.webp"
+              alt="Zebras at waterhole"
+              loading="lazy"
+            />
+            <div class="gal-shade"></div>
+            <span class="gal-tag">Zebra</span>
+            <div class="gal-zoom">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+            <span class="gal-label">Zebra — Tarangire</span>
+          </div>
+          <div class="gal-item wide reveal">
+            <img
+              src="assets/safari-group-lake.webp"
+              alt="Flamingos at Lake Nakuru Kenya"
+              loading="lazy"
+            />
+            <div class="gal-shade"></div>
+            <span class="gal-tag">Birds</span>
+            <div class="gal-zoom">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+            </div>
+            <span class="gal-label">Flamingos — Lake Nakuru, Kenya</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 3. SAFARI EXPERIENCES ==================== -->
+    <section
+      class="se-section"
+      id="experiences"
+      data-screen-label="Safari Experiences"
+    >
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <p class="eyebrow center">What We Offer</p>
+          <h2>Safari Experiences</h2>
+          <p>
+            Every safari we build is different — here are the experiences that
+            make each journey extraordinary.
+          </p>
+        </div>
+        <div class="se-grid">
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80&auto=format&fit=crop"
+                alt="Private 4x4 game drive"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Private Game Drive</h4>
+              <p>
+                Your vehicle, your pace, your guide — the purest safari
+                experience.
+              </p>
+            </div>
+          </div>
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=800&q=80&auto=format&fit=crop"
+                alt="Hot air balloon safari at sunrise"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Hot Air Balloon</h4>
+              <p>
+                Drift silently above the plains as the sun rises over the
+                Serengeti.
+              </p>
+            </div>
+          </div>
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="assets/safari-group-fun.webp"
+                alt="Walking safari East Africa"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Walking Safari</h4>
+              <p>
+                Experience the bush on foot — track wildlife, read the land,
+                feel Africa.
+              </p>
+            </div>
+          </div>
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="assets/safari-2.webp"
+                alt="Cultural tour Maasai village"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Cultural Tours</h4>
+              <p>
+                Visit Maasai villages, meet the Hadzabe tribe, explore spice
+                farms.
+              </p>
+            </div>
+          </div>
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="assets/safari-3.webp"
+                alt="Bush breakfast safari Tanzania"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Bush Breakfast</h4>
+              <p>
+                A private breakfast in the wild — white tablecloths, wildlife
+                views.
+              </p>
+            </div>
+          </div>
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="https://images.unsplash.com/photo-1572431447238-425af66a273b?w=800&q=80&auto=format&fit=crop"
+                alt="Zanzibar beach sunset"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Beach Extension</h4>
+              <p>
+                End your adventure on Zanzibar's white sands and turquoise
+                waters.
+              </p>
+            </div>
+          </div>
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="assets/safari-couple.webp"
+                alt="Sundowner drinks at sunset"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Sundowners</h4>
+              <p>
+                Ice-cold drinks at golden hour on the open plains — a safari
+                staple.
+              </p>
+            </div>
+          </div>
+          <div class="se-card reveal">
+            <div class="se-img">
+              <img
+                src="https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=800&q=80&auto=format&fit=crop"
+                alt="Kilimanjaro summit trek"
+                loading="lazy"
+              />
+              <div class="se-img-overlay"></div>
+            </div>
+            <div class="se-body">
+              <h4>Mountain Trekking</h4>
+              <p>
+                Summit Kilimanjaro, Mount Kenya or Mount Meru with expert
+                guides.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 5. GUEST SAFARI MOMENTS ==================== -->
+    <section
+      class="gm-section"
+      id="guest-moments"
+      data-screen-label="Guest Safari Moments"
+    >
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <p class="eyebrow center">From Our Guests</p>
+          <h2>Guest Safari Moments</h2>
+          <p>
+            Real photographs from real journeys — the smiles, the wildlife and
+            the memories our guests carry home.
+          </p>
+        </div>
+        <div class="gm-grid">
+          <div class="gm-item reveal">
+            <img
+              src="assets/safari-1.webp"
+              alt="Morning game drive"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Sunrise drive</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="assets/safari-couple.webp"
+              alt="Honeymoon safari"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Honeymoon</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="assets/safari-2.webp"
+              alt="Lodge experience"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Lodge life</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="assets/safari-group-fun.webp"
+              alt="Group safari"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Group safari</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="assets/safari-crater.webp"
+              alt="Ngorongoro Crater"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Ngorongoro</span>
+          </div>
+          <div class="gm-item reveal">
+            <img src="assets/safari-3.webp" alt="Crater rim" loading="lazy" />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Crater rim</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="assets/safari-group-lake.webp"
+              alt="Lake Nakuru"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Lake Nakuru</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="assets/safari-4.webp"
+              alt="Wildlife encounter"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Wildlife</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=600&q=80&auto=format&fit=crop"
+              alt="Balloon safari"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Balloon safari</span>
+          </div>
+          <div class="gm-item reveal">
+            <img
+              src="https://images.unsplash.com/photo-1614027164847-1b28cfe1df60?w=600&q=80&auto=format&fit=crop"
+              alt="Big Five sighting"
+              loading="lazy"
+            />
+            <div class="gm-hover">
+              <div class="gm-ic">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <circle cx="11" cy="11" r="8" />
+                  <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  <line x1="11" y1="8" x2="11" y2="14" />
+                  <line x1="8" y1="11" x2="14" y2="11" />
+                </svg>
+              </div>
+            </div>
+            <span class="gm-cap">Big Five</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 6. LUXURY LODGES ==================== -->
+    <section class="ll-section" id="lodges" data-screen-label="Luxury Lodges">
+      <div class="wrap">
+        <div class="section-head center reveal">
+          <p class="eyebrow center">Where You Stay</p>
+          <h2>Luxury Lodges &amp; Camps</h2>
+          <p>
+            We hand-pick every lodge and tented camp — combining comfort with
+            the wilderness that surrounds it.
+          </p>
+        </div>
+        <div class="ll-grid">
+          <div class="ll-card reveal">
+            <div class="ll-img">
+              <img
+                src="assets/safari-1.webp"
+                alt="Luxury tented camp Serengeti"
+                loading="lazy"
+              />
+              <div class="ll-img-overlay"></div>
+              <span class="ll-img-sub">Tanzania</span>
+              <span class="ll-img-label">Serengeti Tented Camp</span>
+            </div>
+          </div>
+          <div class="ll-card reveal">
+            <div class="ll-img">
+              <img
+                src="assets/safari-crater.webp"
+                alt="Ngorongoro crater lodge"
+                loading="lazy"
+              />
+              <div class="ll-img-overlay"></div>
+              <span class="ll-img-sub">Tanzania</span>
+              <span class="ll-img-label">Ngorongoro Crater Lodge</span>
+            </div>
+          </div>
+          <div class="ll-card reveal">
+            <div class="ll-img">
+              <img
+                src="assets/safari-couple.webp"
+                alt="Private conservancy lodge Kenya"
+                loading="lazy"
+              />
+              <div class="ll-img-overlay"></div>
+              <span class="ll-img-sub">Kenya</span>
+              <span class="ll-img-label">Private Conservancy</span>
+            </div>
+          </div>
+          <div class="ll-card reveal">
+            <div class="ll-img">
+              <img
+                src="https://images.unsplash.com/photo-1546182990-dffeafbe841d?w=900&q=80&auto=format&fit=crop"
+                alt="Masai Mara luxury camp"
+                loading="lazy"
+              />
+              <div class="ll-img-overlay"></div>
+              <span class="ll-img-sub">Kenya</span>
+              <span class="ll-img-label">Masai Mara Luxury Camp</span>
+            </div>
+          </div>
+          <div class="ll-card reveal">
+            <div class="ll-img">
+              <img
+                src="https://images.unsplash.com/photo-1572431447238-425af66a273b?w=900&q=80&auto=format&fit=crop"
+                alt="Zanzibar beach resort"
+                loading="lazy"
+              />
+              <div class="ll-img-overlay"></div>
+              <span class="ll-img-sub">Tanzania</span>
+              <span class="ll-img-label">Zanzibar Beach Resort</span>
+            </div>
+          </div>
+          <div class="ll-card reveal">
+            <div class="ll-img">
+              <img
+                src="assets/safari-group-lake.webp"
+                alt="Lake Nakuru lodge Kenya"
+                loading="lazy"
+              />
+              <div class="ll-img-overlay"></div>
+              <span class="ll-img-sub">Kenya</span>
+              <span class="ll-img-label">Lake Nakuru Lodge</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== 7. CINEMATIC BANNER ==================== -->
+    <!-- <div class="cin-banner" id="cinematic" data-screen-label="Cinematic Banner">
+  <div class="cin-bg">
+    <img src="assets/safari-group-lake.webp" alt="East Africa safari — the journey of a lifetime" loading="lazy" />
+  </div>
+  <div class="cin-overlay"></div>
+  <div class="cin-content reveal">
+    <p class="eyebrow">Your East Africa Adventure</p>
+    <h2>Africa Doesn't Wait.<br /><em>Neither Should You.</em></h2>
+    <p>The migration won't pause, the lion won't linger — every day you wait is a sunrise over the Serengeti you haven't seen yet. Let us plan the journey of your life.</p>
+    <div class="cin-btns">
+      <a href="quotation-request.html" class="btn btn-primary btn-lg">Get My Free Quote</a>
+      <a href="https://wa.me/255781800878?text=Hi%20Big%205!%20I%27d%20like%20to%20plan%20a%20safari." target="_blank" rel="noopener" class="btn btn-ghost btn-lg">Chat on WhatsApp</a>
+    </div>
+  </div>
+</div> -->
+
+    <!-- ==================== 8. CTA (existing component) ==================== -->
+    <section class="cta-section pad">
+      <div class="wrap">
+        <div class="cta-inner reveal">
+          <p class="eyebrow center">Your Adventure Awaits</p>
+          <h2>Ready to Experience East Africa With Us?</h2>
+          <p>
+            Let our team of born-and-raised guides craft your perfect safari —
+            tailor-made around your dates, your pace, and your budget. Free
+            custom quotes within 24 hours.
+          </p>
+          <div class="cta-btns">
+            <a href="index.html#inquiry" class="btn btn-primary btn-lg"
+              >Get My Custom Quote</a
+            >
+            <a
+              href="https://wa.me/255781800878"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-ghost btn-lg"
+            >
+              <i class="fa-brands fa-whatsapp"></i>
+              Chat on WhatsApp
+            </a>
+          </div>
+          <!-- <div class="cta-trust">
+            <span class="cta-trust-item"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              No booking fees</span
+            >
+            <span class="cta-trust-item"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              Free itinerary changes</span
+            >
+            <span class="cta-trust-item"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              24/7 on-trip support</span
+            >
+            <span class="cta-trust-item"
+              ><svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              Secure &amp; flexible payments</span
+            >
+          </div> -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer" id="contact">
+      <div class="wrap">
+        <div class="footer-top">
+          <div class="footer-brand">
+            <span class="footer-logo">
+              <img
+                src="assets/uploads/logo.png"
+                alt="Lund Big5 Tours Limited"
+              />
+            </span>
+            <p>
+              Private, tailor-made Kenya &amp; Tanzania safaris crafted by local
+              experts. From the Great Migration to the Lund Big5 — your African
+              adventure starts here.
+            </p>
+            <div class="foot-contact">
+              <div>
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span
+                  >East Africa Road AICC -Serengeti Wing 4th floor Unit S-435
+                  Sekei, Arusha, Tanzania</span
+                >
+              </div>
+              <a href="tel:+255 781 800 878"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"
+                  />
+                </svg>
+                +255 781 800 878</a
+              >
+              <a
+                href="https://wa.me/+255 670 441 617"
+                target="_blank"
+                rel="noopener"
+                ><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"
+                  />
+                </svg>
+                +255 670 441 617 (WhatsApp)</a
+              >
+              <a
+                href="/cdn-cgi/l/email-protection#71181f171e31131816441017031812100210171003185f121e1c"
+                ><svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <rect x="2" y="4" width="20" height="16" rx="2" />
+                  <path d="m22 7-10 6L2 7" />
+                </svg>
+                <span
+                  class="__cf_email__"
+                  data-cfemail="94fdfaf2fbd4f6fdf3a1f5f2e6fdf7f5e7f5f2f5e6fdbaf7fbf9"
+                  >info@lundbig5tours.com</span
+                ></a
+              >
+            </div>
+          </div>
+          <div>
+            <h4>Explore</h4>
+            <div class="foot-links">
+              <a href="index.html">Home</a>
+              <a href="about.html">About Us</a>
+              <a href="index.html#destinations">Destinations</a>
+              <a href="index.html#trekking">Trekking</a>
+              <a href="index.html#activities">Activities</a>
+              <a href="index.html#tours">Tours</a>
+              <a href="gallery.html">Gallery</a>
+              <a href="index.html#reviews">Reviews</a>
+            </div>
+          </div>
+          <div>
+            <h4>Top Packages</h4>
+            <div class="foot-links">
+              <a href="index.html#trekking">5-Day Marangu Route</a>
+              <a href="index.html#trekking">8-Day Machame Route</a>
+              <a href="index.html#tours">Mnemba Island Day Tour</a>
+              <a href="index.html#tours">Zanzibar Holidays 4 Days</a>
+              <a href="index.html#tours">5-Day Serengeti (Camping)</a>
+              <a href="index.html#tours">5-Day Serengeti &amp; Crater</a>
+            </div>
+          </div>
+          <div>
+            <h4>Working Hours</h4>
+            <div class="foot-hours">
+              <div class="row">
+                <span>Mon – Fri</span><span>8 AM – 4 PM</span>
+              </div>
+              <div class="row">
+                <span>Saturday</span><span>8 AM – 12 PM</span>
+              </div>
+              <div class="row closed">
+                <span>Sunday</span><span>Closed</span>
+              </div>
+            </div>
+            <div class="foot-social-row">
+              <a href="#" aria-label="Instagram"
+                ><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2.2c3.2 0 3.6 0 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s0 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58 0-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.21 15.58 2.2 15.2 2.2 12s0-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.21 8.8 2.2 12 2.2zm0 4.67a5.13 5.13 0 1 0 0 10.26 5.13 5.13 0 0 0 0-10.26zm0 8.46a3.33 3.33 0 1 1 0-6.66 3.33 3.33 0 0 1 0 6.66zm6.54-8.66a1.2 1.2 0 1 1-2.4 0 1.2 1.2 0 0 1 2.4 0z"
+                  /></svg
+              ></a>
+              <a href="#" aria-label="Facebook"
+                ><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.52 1.49-3.91 3.78-3.91 1.1 0 2.24.2 2.24.2v2.47h-1.26c-1.24 0-1.63.78-1.63 1.57v1.88h2.78l-.44 2.91h-2.34V22c4.78-.76 8.44-4.92 8.44-9.94z"
+                  /></svg
+              ></a>
+              <a href="#" aria-label="YouTube"
+                ><svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M23.5 6.5a3 3 0 0 0-2.12-2.13C19.5 3.86 12 3.86 12 3.86s-7.5 0-9.38.51A3 3 0 0 0 .5 6.5C0 8.38 0 12 0 12s0 3.62.5 5.5a3 3 0 0 0 2.12 2.13c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51A3 3 0 0 0 23.5 17.5C24 15.62 24 12 24 12s0-3.62-.5-5.5zM9.6 15.6V8.4l6.2 3.6-6.2 3.6z"
+                  /></svg
+              ></a>
+            </div>
+          </div>
+        </div>
+        <div class="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <span class="sep">·</span>
+          <a href="#">Terms &amp; Conditions</a>
+          <span class="sep">·</span>
+          <a href="#">Cookie Policy</a>
+          <span class="sep">·</span>
+          <a href="#">Booking &amp; Payment</a>
+        </div>
+        <div class="footer-bottom">
+          <span>© 2026 Lund Big5 Tours Limited. All rights reserved.</span>
+          <span class="credit"
+            >Designed &amp; Managed by <strong>DUENCY</strong></span
+          >
+        </div>
+      </div>
+    </footer>
+
+    <!-- ==================== WA FLOAT ==================== -->
+    <div class="wa-float" id="waFloat">
+      <div class="wa-panel">
+        <div class="wa-phead">
+          <div class="wa-pavatar">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24z"
+              />
+            </svg>
+          </div>
+          <div>
+            <h4>Big 5 Africa Safari</h4>
+            <span>Typically replies instantly</span>
+          </div>
+          <button class="wa-close" id="waClose" aria-label="Close">
+            &times;
+          </button>
+        </div>
+        <div class="wa-pbody">
+          <div class="wa-msg">
+            <div class="who">Big 5 Africa Safari</div>
+            Jambo! 👋 See something you love in our gallery? Let's plan your
+            safari!
+            <div class="time">Online now</div>
+          </div>
+        </div>
+        <div class="wa-pfoot">
+          <a
+            href="https://wa.me/255781800878?text=Hi%20Big%205!%20I%20saw%20your%20gallery%20and%20would%20like%20to%20plan%20a%20safari."
+            target="_blank"
+            rel="noopener"
+            class="btn btn-wa"
+            style="width: 100%; justify-content: center"
+            >Chat on WhatsApp</a
+          >
+        </div>
+      </div>
+      <button class="wa-bubble" id="waBubble" aria-label="Open WhatsApp chat">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path
+            d="M.057 24l1.687-6.163a11.867 11.867 0 0 1-1.587-5.946C.16 5.335 5.495 0 12.05 0a11.82 11.82 0 0 1 8.413 3.488 11.82 11.82 0 0 1 3.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 0 1-5.688-1.448L.057 24zM6.597 20.13c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884a9.86 9.86 0 0 0 1.513 5.26l-.999 3.648 3.975-1.043zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- NEW JS START -->
+    <script
+      data-cfasync="false"
+      src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"
+    ></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        (function () {
+          "use strict";
+
+          /* ---- Collect all gallery images at runtime ---- */
+          var GALLERY_SELECTORS = [
+            ".fc-grid .gal-item",
+            ".wg-grid .gal-item",
+            ".se-card",
+            ".ll-card",
+            ".gm-grid .gm-item",
+            ".mg-grid .gal-item",
+            ".ig-grid .ig-item",
+          ];
+
+          var items = [];
+
+          GALLERY_SELECTORS.forEach(function (sel) {
+            document.querySelectorAll(sel).forEach(function (el) {
+              var img = el.querySelector("img");
+              if (!img) return;
+              var title = "";
+              var dest = "";
+              var labelEl = el.querySelector(
+                ".gal-label,.ll-img-label,.gm-cap,.se-body h4",
+              );
+              var destEl = el.querySelector(
+                ".gal-tag,.ll-img-sub,.gm-cap + span,.se-body p",
+              );
+              if (labelEl) title = labelEl.textContent.trim();
+              if (!title) title = img.alt || "";
+              if (destEl) dest = destEl.textContent.trim();
+              var idx = items.length;
+              items.push({
+                src: img.src,
+                alt: img.alt,
+                title: title,
+                dest: dest,
+                el: el,
+              });
+              el.setAttribute("data-lb-idx", idx);
+              el.style.cursor = "pointer";
+            });
+          });
+
+          /* ---- Elements ---- */
+          var overlay = document.getElementById("lbOverlay");
+          var lbImg = document.getElementById("lbImg");
+          var lbTitle = document.getElementById("lbTitle");
+          var lbDest = document.getElementById("lbDest");
+          var lbCount = document.getElementById("lbCount");
+          var lbThumbs = document.getElementById("lbThumbs");
+          var lbClose = document.getElementById("lbClose");
+          var lbPrev = document.getElementById("lbPrev");
+          var lbNext = document.getElementById("lbNext");
+          var total = items.length;
+          var current = 0;
+          var thumbEls = [];
+
+          /* ---- Build thumbnail strip ---- */
+          items.forEach(function (it, i) {
+            var t = document.createElement("div");
+            t.className = "lb-thumb";
+            t.setAttribute("aria-label", "Go to photo " + (i + 1));
+            var ti = document.createElement("img");
+            ti.src = it.src;
+            ti.alt = it.alt;
+            ti.loading = "lazy";
+            t.appendChild(ti);
+            t.addEventListener("click", function (e) {
+              e.stopPropagation();
+              goTo(i);
+            });
+            lbThumbs.appendChild(t);
+            thumbEls.push(t);
+          });
+
+          /* ---- Open / close ---- */
+          function open(idx) {
+            current = ((idx % total) + total) % total;
+            render();
+            overlay.classList.add("lb-open");
+            lbClose.classList.add /* already visible via CSS cascade */;
+            document.body.style.overflow = "hidden";
+          }
+
+          function close() {
+            overlay.classList.remove("lb-open");
+            document.body.style.overflow = "";
+          }
+
+          function goTo(idx) {
+            current = ((idx % total) + total) % total;
+            render();
+          }
+
+          function render() {
+            var it = items[current];
+            /* fade out image, swap, fade in */
+            lbImg.style.transition = "opacity .18s";
+            lbImg.style.opacity = "0";
+            setTimeout(function () {
+              lbImg.src = it.src;
+              lbImg.alt = it.alt;
+              lbImg.onload = function () {
+                lbImg.style.opacity = "1";
+              };
+              /* if already cached, onload may not fire */
+              if (lbImg.complete) lbImg.style.opacity = "1";
+            }, 160);
+            lbTitle.textContent = it.title;
+            lbDest.textContent = it.dest;
+            lbCount.textContent = "Image " + (current + 1) + " of " + total;
+            /* update thumbnails */
+            thumbEls.forEach(function (t, i) {
+              t.classList.toggle("lb-thumb-active", i === current);
+            });
+            /* scroll active thumb into view */
+            if (thumbEls[current]) {
+              thumbEls[current].scrollIntoView({
+                behavior: "smooth",
+                inline: "center",
+                block: "nearest",
+              });
+            }
+          }
+
+          /* ---- Attach click to every gallery item ---- */
+          document.querySelectorAll("[data-lb-idx]").forEach(function (el) {
+            el.addEventListener("click", function (e) {
+              e.preventDefault();
+              open(parseInt(el.getAttribute("data-lb-idx"), 10));
+            });
+          });
+
+          /* ---- Controls ---- */
+          lbClose.addEventListener("click", close);
+          lbPrev.addEventListener("click", function () {
+            goTo(current - 1);
+          });
+          lbNext.addEventListener("click", function () {
+            goTo(current + 1);
+          });
+          overlay.addEventListener("click", function (e) {
+            if (e.target === overlay) close();
+          });
+
+          /* ---- Keyboard ---- */
+          document.addEventListener("keydown", function (e) {
+            if (!overlay.classList.contains("lb-open")) return;
+            if (e.key === "Escape") close();
+            if (e.key === "ArrowLeft") goTo(current - 1);
+            if (e.key === "ArrowRight") goTo(current + 1);
+          });
+
+          /* ---- Touch swipe ---- */
+          var tx = 0,
+            ty = 0;
+          overlay.addEventListener(
+            "touchstart",
+            function (e) {
+              tx = e.touches[0].clientX;
+              ty = e.touches[0].clientY;
+            },
+            { passive: true },
+          );
+          overlay.addEventListener("touchend", function (e) {
+            var dx = e.changedTouches[0].clientX - tx;
+            var dy = e.changedTouches[0].clientY - ty;
+            if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 44) {
+              if (dx < 0) goTo(current + 1);
+              else goTo(current - 1);
+            }
+          });
+
+          /* ---- Horizontal scroll drag (wlh/hs track if present) ---- */
+          var hsTracks = document.querySelectorAll(
+            ".hs-track-wrap, .wlh-scroll",
+          );
+          hsTracks.forEach(function (track) {
+            var down = false,
+              sx,
+              sl;
+            track.addEventListener("mousedown", function (e) {
+              down = true;
+              track.classList.add("grabbing");
+              sx = e.pageX - track.getBoundingClientRect().left;
+              sl = track.scrollLeft;
+            });
+            document.addEventListener("mouseup", function () {
+              down = false;
+              if (track) track.classList.remove("grabbing");
+            });
+            track.addEventListener("mouseleave", function () {
+              down = false;
+              track.classList.remove("grabbing");
+            });
+            track.addEventListener("mousemove", function (e) {
+              if (!down) return;
+              e.preventDefault();
+              track.scrollLeft =
+                sl - (e.pageX - track.getBoundingClientRect().left - sx) * 1.6;
+            });
+          });
+        })();
+      }); // DOMContentLoaded
+    </script>
+    <!-- NEW JS END -->
+
+    <script src="assets/js/navigation.js"></script>
+    <script src="assets/js/animations.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <!-- LIGHTBOX MODAL -->
+    <div
+      class="lb-overlay"
+      id="lbOverlay"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+    >
+      <div class="lb-frame"><img id="lbImg" src="" alt="" /></div>
+      <div class="lb-info">
+        <div class="lb-info-title" id="lbTitle"></div>
+        <div class="lb-info-dest" id="lbDest"></div>
+        <div class="lb-info-count" id="lbCount"></div>
+      </div>
+      <div class="lb-thumbs" id="lbThumbs"></div>
+    </div>
+    <button class="lb-close" id="lbClose" aria-label="Close photo viewer">
+      &times;
+    </button>
+    <button class="lb-nav lb-prev" id="lbPrev" aria-label="Previous photo">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m15 18-6-6 6-6" />
+      </svg>
+    </button>
+    <button class="lb-nav lb-next" id="lbNext" aria-label="Next photo">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="m9 18 6-6-6-6" />
+      </svg>
+    </button>
+  </body>
+</html>

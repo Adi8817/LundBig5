@@ -1,0 +1,67 @@
+Big 5 theme development process :
+
+03/07/2026
+
+
+Ye theme kis structure pe bani hai?
+
+functions.php me kya hai?
+
+CSS kaise load ho rahi hai?
+
+Header kaise call ho raha hai?
+
+Footer kaise call ho raha hai?
+
+Template Parts use hue hain?
+
+ACF already install hai?
+
+Kya CPT hai?
+
+Kya Options Page bana hua hai?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+dissussion with chat gpt :
+
+Mujhe lagta hai is project mein main tujhe mentor ki tarah guide kar sakta hoon.
+
+Hum ye order follow karenge:
+
+Session 1: Theme ko reverse engineer karenge.
+
+Kaunsi file kis kaam ki hai?
+functions.php kya kar raha hai?
+header.php aur footer.php ka flow.
+CSS/JS kaise load ho rahe hain?
+
+Session 2: HTML ko WordPress templates mein convert karenge.
+
+Session 3: ACF field planning karenge.
+
+Session 4: Har section ko dynamic banayenge.
+
+Session 5: Production-level cleanup, security aur optimization.
+
+Is tarah tu sirf ye project complete nahi karega, balki agli baar kisi bhi custom WordPress theme ko dekhkar uska structure samajh jayega.
+
+
