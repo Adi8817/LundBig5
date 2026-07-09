@@ -218,3 +218,86 @@
 }());
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+ (function () {
+        "use strict";
+
+        var CHAR_LIMIT = 200; // ~180-220 chars per spec
+
+        document.querySelectorAll(".testi-text").forEach(function (p) {
+          var fullText = p.textContent.trim();
+          if (fullText.length <= CHAR_LIMIT) return; // short reviews: leave untouched, no button
+
+          // Find a clean word-boundary cut point near the limit
+          var cut = fullText.lastIndexOf(" ", CHAR_LIMIT);
+          if (cut === -1) cut = CHAR_LIMIT;
+          var shortText = fullText.slice(0, cut).trim() + "\u2026";
+
+          var card = p.closest(".testi-card");
+          var personEl = card ? card.querySelector(".testi-person") : null;
+
+          // Wrap the paragraph (+ fade + button) so it can flex-grow and push
+          // reviewer info to the bottom of the card, keeping card heights equal.
+          var wrap = document.createElement("div");
+          wrap.className = "testi-text-wrap";
+          p.parentNode.insertBefore(wrap, p);
+          wrap.appendChild(p);
+
+          // Text content span (keeps the <p> markup stable while we swap text)
+          var textSpan = document.createElement("span");
+          textSpan.className = "testi-text-content";
+          textSpan.textContent = shortText;
+          p.textContent = "";
+          p.appendChild(textSpan);
+          p.setAttribute("data-collapsed", "true");
+
+          // Bottom fade overlay, shown only while collapsed
+          var fade = document.createElement("span");
+          fade.className = "testi-fade";
+          fade.setAttribute("aria-hidden", "true");
+          p.appendChild(fade);
+
+          // Read More / Read Less link
+          var btn = document.createElement("button");
+          btn.type = "button";
+          btn.className = "testi-readmore";
+          btn.setAttribute("aria-expanded", "false");
+          btn.innerHTML =
+            '<span class="tr-label">Read More</span><span class="tr-arrow">\u2192</span>';
+          wrap.appendChild(btn);
+
+          // Thin divider between the read-more area and reviewer info
+          if (personEl) {
+            var divider = document.createElement("div");
+            divider.className = "testi-divider";
+            personEl.parentNode.insertBefore(divider, personEl);
+          }
+
+          btn.addEventListener("click", function () {
+            var collapsed = p.getAttribute("data-collapsed") === "true";
+            if (collapsed) {
+              textSpan.textContent = fullText;
+              p.setAttribute("data-collapsed", "false");
+              btn.setAttribute("aria-expanded", "true");
+              btn.querySelector(".tr-label").textContent = "Read Less";
+            } else {
+              textSpan.textContent = shortText;
+              p.setAttribute("data-collapsed", "true");
+              btn.setAttribute("aria-expanded", "false");
+              btn.querySelector(".tr-label").textContent = "Read More";
+            }
+          });
+        });
+      })();

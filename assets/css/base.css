@@ -179,3 +179,121 @@ ul {
 .about-hero::after { z-index: 1; }
 /* Ensure content stays above everything */
 .about-hero-inner { z-index: 3; }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ---- Review Read More / Read Less (premium) ---- */
+      .testi-text-wrap {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+      }
+      .testi-text {
+        position: relative;
+        overflow: hidden;
+        margin: 0;
+        transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .testi-text[data-collapsed="true"] {
+        max-height: 8.4em; /* ~5-6 lines at this font-size/line-height */
+      }
+      .testi-text[data-collapsed="false"] {
+        max-height: 60em; /* generous cap so transition has room to animate to */
+      }
+      .testi-fade {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 46px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0) 0%,
+          #fff 82%
+        );
+        opacity: 1;
+        transition: opacity 0.35s;
+        pointer-events: none;
+      }
+      .testi-text[data-collapsed="false"] .testi-fade {
+        opacity: 0;
+      }
+      .testi-readmore {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        align-self: flex-start;
+        margin-top: 18px;
+        background: none;
+        border: 0;
+        padding: 0;
+        font-family: var(--font-body);
+        font-size: 13.5px;
+        font-weight: 700;
+        color: var(--gold);
+        cursor: pointer;
+        letter-spacing: 0.01em;
+        transition: color 0.18s;
+      }
+      .testi-readmore .tr-arrow {
+        display: inline-block;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 14px;
+        line-height: 1;
+      }
+      .testi-readmore .tr-label {
+        position: relative;
+      }
+      .testi-readmore .tr-label::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -2px;
+        height: 1px;
+        background: currentColor;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      .testi-readmore:hover {
+        color: var(--gold-bright);
+      }
+      .testi-readmore:hover .tr-label::after {
+        transform: scaleX(1);
+      }
+      .testi-readmore:hover .tr-arrow {
+        transform: translateX(4px);
+      }
+      .testi-readmore[aria-expanded="true"] .tr-arrow {
+        transform: rotate(-90deg);
+      }
+      .testi-readmore[aria-expanded="true"]:hover .tr-arrow {
+        transform: rotate(-90deg) translateX(4px);
+      }
+      .testi-divider {
+        border-top: 1px solid var(--line);
+        margin-top: 20px;
+        padding-top: 20px;
+      }
