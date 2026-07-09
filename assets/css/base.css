@@ -297,3 +297,119 @@ ul {
         margin-top: 20px;
         padding-top: 20px;
       }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /* ================================================================
+   Hero Gallery — premium polish, contained to site max-width
+   Reuses existing .slider-main / .thumbs-row / .thumb / .slider-arrow
+   markup and JS (js/slider.js) untouched. Only visual refinement +
+   containment inside the standard 1280px content wrap.
+   Move to css/slider.css when ready.
+   ================================================================ */
+.slider-section { background: transparent; padding: 32px 0 44px; }
+.gallery-wrap { max-width: 1280px; margin: 0 auto; padding: 0 28px; }
+
+.gallery-stage {
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  background: #1a1512;
+}
+.gallery-stage .slider-main {
+  height: 560px;
+  border-radius: 0; /* radius handled by .gallery-stage clip */
+}
+.gallery-stage .slider-main .slide img { transition: transform 8s ease; }
+.gallery-stage .slider-main .slide.active img { transform: scale(1.045); }
+
+/* Premium arrow controls */
+.gallery-stage .slider-arrow {
+  width: 46px; height: 46px;
+  background: rgba(255,255,255,.14);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,.22);
+  transition: background .22s, transform .22s, border-color .22s;
+}
+.gallery-stage .slider-arrow:hover {
+  background: rgba(255,255,255,.28);
+  border-color: rgba(255,255,255,.4);
+}
+.gallery-stage .slider-prev:hover { transform: translateY(-50%) translateX(-3px); }
+.gallery-stage .slider-next:hover { transform: translateY(-50%) translateX(3px); }
+
+/* Counter polish */
+.gallery-stage .slide-counter {
+  background: rgba(10,7,4,.55);
+  backdrop-filter: blur(4px);
+  font-size: 12px;
+  letter-spacing: .04em;
+  padding: 6px 14px;
+}
+
+/* Thumbnail strip — contained + premium */
+.gallery-thumbs {
+  margin-top: 14px;
+  padding: 0;
+}
+.gallery-thumbs .thumbs-row { padding: 0; gap: 12px; }
+.gallery-thumbs .thumb {
+  width: 128px; height: 80px;
+  border-radius: 12px;
+  border-width: 3px;
+  box-shadow: 0 4px 14px rgba(0,0,0,.12);
+  transition: border-color .22s, opacity .22s, transform .22s, box-shadow .22s;
+}
+.gallery-thumbs .thumb:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.2);
+}
+.gallery-thumbs .thumb img { transition: transform .4s; }
+.gallery-thumbs .thumb:hover img { transform: scale(1.08); }
+.gallery-thumbs .thumb.active {
+  border-color: var(--gold-bright);
+  box-shadow: 0 6px 18px rgba(194,138,51,.28);
+}
+
+@media (max-width: 1024px) {
+  .gallery-stage .slider-main { height: 420px; }
+}
+@media (max-width: 700px) {
+  .gallery-stage { border-radius: 16px; }
+  .gallery-stage .slider-main { height: 320px; }
+  .gallery-thumbs .thumb { width: 96px; height: 62px; border-radius: 10px; }
+  .slider-section { padding: 22px 0 32px; }
+}
+@media (max-width: 480px) {
+  .gallery-stage .slider-main { height: 280px; }
+  .gallery-wrap { padding: 0 18px; }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
